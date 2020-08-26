@@ -74,7 +74,7 @@ export default {
           color: 'primary',
           textColor: 'white',
           message: `Processing request...`,
-          timeout: 5000,
+          timeout: 3000,
           caption: this.config.notificationCaption
           // badgeColor: 'red',
           // badgeTextColor: 'dark',
@@ -82,9 +82,9 @@ export default {
           // avatar: 'https://cdn.quasar.dev/img/boy-avatar.png',
         }
         this.$q.notify(notification)
+        this.meterToGet = this.device
         this.device = null
         this.amount = null
-        this.$refs.device.focus()
       } catch (error) {
         const notification = {
           position: 'bottom',
@@ -120,3 +120,4 @@ export default {
   }
 }
 </script>
+
