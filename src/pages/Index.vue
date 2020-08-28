@@ -84,6 +84,13 @@ export default {
           disabled: true
         },
         {
+          title: 'Sign Up',
+          caption: 'To access services',
+          icon: 'person',
+          link: '/auth',
+          disabled: false
+        },
+        {
           title: 'Shopping',
           caption: 'Home delivery',
           icon: 'shopping_cart',
