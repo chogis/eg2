@@ -13,7 +13,7 @@
 
         <q-toolbar-title>
           {{title}}
-          <q-badge v-if="page" color="amber-5" text-color="black" align="middle">{{page}}</q-badge>
+          <q-badge v-if="page" color="yellow" text-color="black" align="middle">{{page}}</q-badge>
         </q-toolbar-title>
 
         <div>{{rightTitle}}</div>
@@ -47,6 +47,9 @@ export default {
   },
   computed: {
     ...mapGetters('store', ['page'])
+  },
+  created() {
+    // console.log(this.page, this.graphqlUrl)
   }
 }
 </script>

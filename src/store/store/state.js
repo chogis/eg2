@@ -1,4 +1,5 @@
 export default {
   //
-  page: null
+  page: null,
+  graphqlUrl: 'https://xhlpk.sse.codesandbox.io/'
 }

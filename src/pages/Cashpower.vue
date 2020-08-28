@@ -1,7 +1,7 @@
 <template>
   <q-page class="fit column wrap justify-start items-center content-center q-pa-md">
     <send-device :config="cashpower"/>
-    <!-- <show-token :sale="token"/> -->
+    <show-token :sale="token"/>
   </q-page>
 </template>
 
@@ -14,10 +14,10 @@ export default {
   data() {
     return {
       token: {
-        name: 'Jammeh Musa',
-        meter: '1234567',
+        name: 'Adama Brown (Sample)',
+        meter: '07052142152',
         amount: 300,
-        token: '5828558880951500',
+        token: '58285588809515002141',
         kwh: '39.9'
       },
       cashpower: {
