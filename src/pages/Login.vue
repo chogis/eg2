@@ -6,7 +6,7 @@
       type="number"
       ref="mobile"
       hint="Include country code. e.g. 2206098999"
-      label="Whatsapp number"
+      label="Whatsapp mobile number"
       prefix="+"
       style="width: 80vw"
       class="q-ma-sm text-h5"
@@ -42,6 +42,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { get } from 'components/I'
 
 export default {
   name: 'Login',
@@ -50,8 +51,9 @@ export default {
       mobile: null,
       code: null,
       showMobile: true,
-      verifyQuery: `mutation ConfirmUser($mobile: Float, $code: Int) {ConfirmUser(mobile: $mobile, code: $code)}`,
-      registerQuery: 'mutation ($mobile: Float!) {  NewUser(mobile: $mobile)}'
+      verifyQuery: `mutation CompleteSignup($mobile: Float, $code: Int) {CompleteSignup(mobile: $mobile, code: $code)}`,
+      registerQuery:
+        'mutation ($mobile: Float!) {  BeginSignup(mobile: $mobile)}'
 
       // showPIN: false
     }
@@ -59,7 +61,7 @@ export default {
   methods: {
     GetCode() {
       this.showMobile = !this.showMobile
-      this.getch(this.registerQuery, { mobile: this.mobile })
+      get(this.registerQuery, { mobile: this.mobile })
       const notification = {
         position: 'bottom',
         // group: 'cart',
@@ -76,7 +78,6 @@ export default {
         // avatar: 'https://cdn.quasar.dev/img/boy-avatar.png',
       }
       this.$q.notify(notification)
-      // this.$refs.code.focus()
     },
 
     async VerifyCode() {
@@ -85,10 +86,10 @@ export default {
         code: this.code,
         mobile: this.mobile
       }
-      const confirmed = await this.getch(this.verifyQuery, data)
-      // console.log(confirmed.ConfirmUser, vars)
-      // if (this.mobile && this.code === '123') {
-      if (confirmed.ConfirmUser) {
+      const auth =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOjIyMDk4Mzc0ODYsImlhdCI6MTU5ODY0NzAyMywiZXhwIjoxNTk4NjQ3MDgzfQ.ctZZWHsfr04HxL-qXtHb3FIcr4d-jdt7UYlfyO3t_TI'
+      const confirmed = await get(this.verifyQuery, data, auth)
+      if (confirmed.CompleteSignup) {
         notification = {
           position: 'bottom',
           // group: 'cart',
@@ -126,27 +127,7 @@ export default {
         this.showMobile = true
       }
       this.$q.notify(notification)
-    },
-
-    async getch(query = '', params = '') {
-      const url = this.graphqlUrl
-      const fetchOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          query,
-          variables: params
-        })
-      }
-
-      const res = await fetch(url, fetchOptions)
-      const data = await res.json()
-      console.log(data.data, JSON.stringify(fetchOptions))
-      return data.data
-    } //getch
+    }
   },
   computed: {
     ...mapGetters('store', ['graphqlUrl'])

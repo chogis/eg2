@@ -32,14 +32,6 @@
     >
       <template v-slot:append>
         <q-btn :icon="config.sendIcon" flat round class="text-primary" @click="Process"/>
-        <!-- <q-btn
-          :icon-right="config.sendIcon"
-          unelevated
-          rounded
-          :label="config.sendLabel"
-          class="bg-primary text-white"
-          @click="Process"
-        />-->
       </template>
     </q-input>
   </div>
@@ -60,12 +52,18 @@ export default {
       validation: this.rules
     }
   },
+  computed: {
+    input() {
+      return { device: this.device, amount: this.amount }
+    }
+  },
   methods: {
     NextInput() {
       this.$refs.amount.focus()
     },
 
     Process() {
+      this.$emit('data', this.input)
       try {
         this.Validate()
         const notification = {

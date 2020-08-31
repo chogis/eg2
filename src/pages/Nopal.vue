@@ -1,46 +1,6 @@
 <template>
   <q-page class="fit column wrap justify-start items-center content-center q-pa-md">
-    <!-- <q-input
-      v-model.number="mobile"
-      ref="mobile"
-      hint="Gamcel, Africell, Comium, Qcell available"
-      label="Mobile Number"
-      prefix="+220"
-      style="width: 250px"
-      class="q-ma-sm text-h6"
-      type="number"
-      clearable
-      clear-icon="close"
-      @keyup.enter="NextInput"
-    >
-      <template v-slot:prepend>
-        <q-icon name="call"/>
-      </template>
-    </q-input>
-    <q-input
-      v-model.number="amount"
-      ref="amount"
-      type="number"
-      :hint="`From ${unit}${lowest} to ${unit}${highest}${fee ? `. -D${fee} FEE`: '. FREE'}`"
-      label="Credit Amount"
-      prefix="D"
-      style="width: 250px"
-      class="q-ma-sm text-h6"
-      @keyup.enter="Process"
-    >
-      <template v-slot:append v-if="!Send">
-        <q-btn
-          v-if="!Send"
-          icon-right="send"
-          unelevated
-          rounded
-          label="Send"
-          class="bg-primary text-white"
-          @click="Process"
-        />
-      </template>
-    </q-input>-->
-    <send-device :config="cash"/>
+    <send-device :config="cash" @data="test"/>
   </q-page>
 </template>
 
@@ -91,6 +51,10 @@ export default {
     }
   },
   methods: {
+    test(data) {
+      console.log(data)
+    },
+
     NextInput() {
       this.$refs.amount.focus()
     },
